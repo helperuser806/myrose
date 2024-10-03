@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;
+    font-family: monospace;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    perspective: 1000px;
+}
+
+/* Estilo base de la carta */
+.card {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.6s ease, box-shadow 0.3s ease; /* Suave transición */
+    cursor: pointer;
+}
+
+/* Inclinación cuando se haga clic para activar la clase 'clicked' */
+.clicked {
+    transform: rotateX(-10deg); /* Inclinación ligera en el eje X */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Sombras para darle tridimensionalidad */
+}
+
+/* Girar la carta después de la inclinación */
+.open {
+    transform: rotateY(180deg); /* Giro completo de la carta */
+    box-shadow: none; /* Eliminar sombras al girar completamente */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-front {
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #000000;
+    overflow: hidden;
+}
+
+.envelope-top {
+    width: 100%;
+    height: 50%;
+    background-color: #dfdddd;
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    border-bottom: 3px solid #000000;
+}
+
+.envelope-bottom {
+    width: 100%;
+    height: 50%;
+    background-color: #fff;
+}
+
+.card-back {
+    background-color: #fff;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.card-back h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.images-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.card-back img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+}
+
+/* Efecto de luz al hacer hover */
+.card-back img:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px 10px rgba(255, 0, 119, 0.6); /* Luz brillante */
+}
+.open {
+    transform: rotateY(180deg);
+}
+
+/* Fondo rosado con estrellas parpadeantes */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #e80061;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Estilos Responsivos */
+@media (max-width: 768px) {
+    .card {
+        width: 300px;
+        height: 225px;
+    }
+
+    .card-back img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .card-back h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 250px;
+        height: 187px;
+    }
+
+    .card-back img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .card-back h2 {
+        font-size: 1rem;
+    }
+}
+
+#particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* No interferir con los clics */
+    overflow: hidden;
+    z-index: 2;
+}
+
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: white;
+    border-radius: 50%;
+    animation: particle-animation 1.5s ease-out forwards;
+}
+
+@keyframes particle-animation {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-200px) scale(2);
+    }
+}
